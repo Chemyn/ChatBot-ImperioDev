@@ -243,6 +243,10 @@ jQuery(document).ready(function ($) {
         }, 600);
     }
 
+    /**
+     * Agrega un mensaje del bot al cuerpo del chat.
+     * @param {string} text - El texto o HTML a mostrar como mensaje del bot.
+     */
     function appendBotMessage(text) {
         const html = `<div class="cac-message bot-message">${text}</div>`;
         $messagesBody.append(html);
@@ -284,6 +288,10 @@ jQuery(document).ready(function ($) {
         scrollToBottom();
     }
 
+    /**
+     * Muestra el indicador de "escribiendo..." en el chat.
+     * Se usa antes de mostrar una respuesta del bot para dar sensación de naturalidad.
+     */
     function showTypingIndicator() {
         const html = `
             <div id="cac-typing" class="cac-message bot-message" style="width: fit-content;">
@@ -294,10 +302,18 @@ jQuery(document).ready(function ($) {
         scrollToBottom();
     }
 
+    /**
+     * Elimina el indicador de "escribiendo..." del DOM.
+     * Se llama justo antes de mostrar el mensaje real.
+     */
     function removeTypingIndicator() {
         $('#cac-typing').remove();
     }
 
+    /**
+     * Realiza un scroll suave hacia el final del contenedor de mensajes.
+     * Asegura que el usuario vea siempre el último contenido agregado.
+     */
     function scrollToBottom() {
         $messagesBody.animate({ scrollTop: $messagesBody[0].scrollHeight }, 300);
     }
