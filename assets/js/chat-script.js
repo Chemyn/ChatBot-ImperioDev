@@ -155,7 +155,7 @@ jQuery(document).ready(function ($) {
             options: [{ label: "⬅️ Otra duda", next: 'faq_menu' }, { label: "🏠 Inicio", next: 'start' }]
         },
         'faq_cost': {
-            text: "Cada proyecto es único. Hablemos 5 minutos para darte un presupuesto justo.",
+            text: "¡Cada proyecto es único! Generalmente, nuestras webs van de los $4,000 a los $12,000. ¿Qué te parece si hablamos 5 minutos para darte un presupuesto a tu medida?",
             options: [{ label: "⬅️ Otra duda", next: 'faq_menu' }, { label: "📩 Cotizar", next: 'human_contact' }, { label: "🏠 Inicio", next: 'start' }]
         },
 
@@ -193,6 +193,10 @@ jQuery(document).ready(function ($) {
     let inactivityTimer;
     const INACTIVITY_LIMIT = 300000; // 5 minutos en milisegundos
 
+    /**
+     * Alterna la visibilidad de la ventana del chat.
+     * Inicializa el chat si es la primera vez que se abre.
+     */
     function toggleChat() {
         $chatWindow.toggleClass('hidden');
         if (!$chatWindow.hasClass('hidden')) {
@@ -209,11 +213,20 @@ jQuery(document).ready(function ($) {
     $toggleBtn.on('click', toggleChat);
     $closeBtn.on('click', toggleChat);
 
+    /**
+     * Inicia la conversación limpiando mensajes anteriores
+     * y mostrando el paso inicial.
+     */
     function startChat() {
         $messagesBody.empty();
         renderStep('start');
     }
 
+    /**
+     * Renderiza un paso específico del flujo del chat.
+     * Muestra indicador de escritura y luego el mensaje y opciones.
+     * @param {string} stepKey - La clave del paso a renderizar.
+     */
     function renderStep(stepKey) {
         const step = chatFlow[stepKey];
         if (!step) return;
@@ -236,6 +249,11 @@ jQuery(document).ready(function ($) {
         scrollToBottom();
     }
 
+    /**
+     * Genera y muestra los botones de opciones para el usuario.
+     * Maneja los eventos de clic para navegación o redirección.
+     * @param {Array} options - Lista de opciones del paso actual.
+     */
     function renderOptions(options) {
         const $optionsContainer = $('<div class="cac-options-container"></div>');
 
@@ -285,6 +303,11 @@ jQuery(document).ready(function ($) {
     }
 
     // --- LÓGICA DE INACTIVIDAD ---
+
+    /**
+     * Reinicia el temporizador de inactividad.
+     * Si el usuario no interactúa en 5 minutos, muestra mensaje de inactividad.
+     */
     function resetInactivityTimer() {
         clearTimeout(inactivityTimer);
         // Solo contar si el chat está abierto
